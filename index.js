@@ -7,8 +7,10 @@ app.use(express.urlencoded({
   extended: true
 }))
 
-app.get("/", function (req, res){
-  res.send("Olá mundo")
+app.get("/", async function (req, res){
+ const resultado =  await usuario.findAll();
+  res.json(resultado)
+  
 });
 
 app.post("/", function (req, res){
