@@ -8,6 +8,13 @@ app.use(express.urlencoded({
   extended: true
 }))
 
+
+app.get("/usuarios/:id/empresa", async function (req, res){
+  const resultado = await usuario.findByPk(req.params.id, {include: 'empresa'});
+  res.json(resultado.empresa);
+})
+  
+
 app.get("/usuarios/:id", async function (req, res){
  const resultado =  await usuario.findOne({where : {id:req.params.id}});
   res.json(resultado)
@@ -37,6 +44,11 @@ app.delete("/usuarios/:id", async function (req, res){
 
 
 /*Empresas*/
+
+app.get("/empresas/:id/usuario", async function (req, res){
+  const resultado = await empresa.findByPk(req.params.id, {include: 'usuarios'});
+  res.json(resultado.usuarios);
+})
 
 
 app.get("/empresas/:id", async function (req, res){
@@ -68,7 +80,7 @@ app.delete("/empresas/:id", async function (req, res){
 
 
 
-app.listen(3000, function(){
+app.listen(3002, function(){
   console.log("O servidor esta em killing spree B)")
 });
 
